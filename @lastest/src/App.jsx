@@ -5,9 +5,10 @@ function App() {
   const [job, setJob] = useState("");
   const [jobs, setJobs] = useState(() => {
     const getJobs = JSON.parse(localStorage.getItem("jobs"));
-    console.log(getJobs);
     return getJobs ?? [];
   });
+  const [checked, setChecked] = useState([]);
+  console.log(checked);
 
   const add = () => {
     setJobs((prev) => {
@@ -20,6 +21,17 @@ function App() {
     setJob("");
   };
 
+  const handleChecked = (index) => {
+    setChecked((prev) => {
+      const isChecked = checked.includes(index);
+      if (isChecked) {
+        return checked.filter((item) => item !== index);
+      } else {
+        return [...prev, index];
+      }
+    });
+  };
+
   return (
     <>
       <div style={{ padding: "30" }}>
@@ -28,12 +40,21 @@ function App() {
           value={job}
           onChange={(e) => setJob(e.target.value)}
         />
+
         <button style={{ padding: "10px" }} onClick={add}>
           Add to list
         </button>
+
         <ul>
           {jobs.map((job, index) => (
-            <li key={index}> {job} </li>
+            <li key={index}>
+              <input
+                type="checkbox"
+                checked={checked.includes(index)}
+                onChange={() => handleChecked(index)}
+              />
+              {job}
+            </li>
           ))}
         </ul>
       </div>

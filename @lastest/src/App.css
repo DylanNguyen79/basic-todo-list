@@ -186,3 +186,7 @@
 .job-list {
   padding-left: 20px;
 }
+
+li {
+  list-style: none;
+}
