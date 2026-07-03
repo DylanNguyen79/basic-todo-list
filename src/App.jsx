@@ -42,6 +42,17 @@ function App() {
     localStorage.setItem("checked", JSON.stringify(checked));
   };
 
+  const clearAll = () => {
+    const isConfirm = window.confirm("Bạn có muốn xoá hết không?");
+
+    if (isConfirm) {
+      setJobs([]);
+      setChecked([]);
+      localStorage.removeItem("jobs");
+      localStorage.removeItem("checked");
+    }
+  };
+
   return (
     <>
       <div style={{ padding: "30" }}>
@@ -66,7 +77,16 @@ function App() {
             </li>
           ))}
         </ul>
+
+        <p>
+          Completed: {checked.length}/{jobs.length}
+        </p>
+
+        <p>Progress: {(checked.length / jobs.length) * 100}%</p>
+
         <button onClick={handleUpdate}>Update</button>
+
+        <button onClick={clearAll}>Clear All</button>
       </div>
     </>
   );
