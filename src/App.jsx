@@ -1,5 +1,9 @@
 import { useState, useRef } from "react";
 import "./App.css";
+import TodoInput from "./components/TodoInput";
+import TodoList from "./components/TodoList";
+import Progress from "./components/Progress";
+import ActionButton from "./components/ActionButton";
 
 function App() {
   const inputRef = useRef();
@@ -62,38 +66,18 @@ function App() {
   return (
     <>
       <div style={{ padding: "30" }}>
-        <input
-          ref={inputRef}
-          onKeyDown={handleEnter}
-          style={{ padding: "10px" }}
-          value={job}
-          onChange={(e) => setJob(e.target.value)}
+        <TodoInput
+          job={job}
+          setJob={setJob}
+          add={add}
+          inputRef={inputRef}
+          handleEnter={handleEnter}
         />
-        <button style={{ padding: "10px" }} onClick={add} disabled={!job}>
-          Add to list
-        </button>
-        <ul>
-          {jobs.map((job, index) => (
-            <li key={index}>
-              <input
-                type="checkbox"
-                checked={checked.includes(index)}
-                onChange={() => handleChecked(index)}
-              />
-              {job}
-            </li>
-          ))}
-        </ul>
+        <TodoList jobs={jobs} checked={checked} handleChecked={handleChecked} />
 
-        <p>
-          Completed: {checked.length}/{jobs.length}
-        </p>
+        <Progress checked={checked} jobs={jobs} />
 
-        <p>Progress: {(checked.length / jobs.length) * 100}%</p>
-
-        <button onClick={handleUpdate}>Update</button>
-
-        <button onClick={clearAll}>Clear All</button>
+        <ActionButton handleUpdate={handleUpdate} clearAll={clearAll} />
       </div>
     </>
   );
