@@ -53,12 +53,18 @@ function App() {
     }
   };
 
+  const handleEnter = (e) => {
+    if (e.key === "Enter" && job) {
+      add();
+    }
+  };
+
   return (
     <>
       <div style={{ padding: "30" }}>
         <input
           ref={inputRef}
-          onKeyDown={job}
+          onKeyDown={handleEnter}
           style={{ padding: "10px" }}
           value={job}
           onChange={(e) => setJob(e.target.value)}
@@ -83,7 +89,7 @@ function App() {
           Completed: {checked.length}/{jobs.length}
         </p>
 
-        {/* <p>Progress: {(checked.length / jobs.length) * 100}%</p> */}
+        <p>Progress: {(checked.length / jobs.length) * 100}%</p>
 
         <button onClick={handleUpdate}>Update</button>
 
