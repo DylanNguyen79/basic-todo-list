@@ -58,11 +58,12 @@ function App() {
       <div style={{ padding: "30" }}>
         <input
           ref={inputRef}
+          onKeyDown={job}
           style={{ padding: "10px" }}
           value={job}
           onChange={(e) => setJob(e.target.value)}
         />
-        <button style={{ padding: "10px" }} onClick={add}>
+        <button style={{ padding: "10px" }} onClick={add} disabled={!job}>
           Add to list
         </button>
         <ul>
@@ -82,7 +83,7 @@ function App() {
           Completed: {checked.length}/{jobs.length}
         </p>
 
-        <p>Progress: {(checked.length / jobs.length) * 100}%</p>
+        {/* <p>Progress: {(checked.length / jobs.length) * 100}%</p> */}
 
         <button onClick={handleUpdate}>Update</button>
 
