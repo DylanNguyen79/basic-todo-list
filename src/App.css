@@ -6,3 +6,20 @@
 li {
   list-style: none;
 }
+
+.job-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.job-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.job-name {
+  width: 200px;
+  display: inline-block;
+}

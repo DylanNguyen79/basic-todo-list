@@ -16,9 +16,10 @@ function App() {
     const getChecked = JSON.parse(localStorage.getItem("checked"));
     return getChecked ?? [];
   });
-  console.log(checked);
+  const [editIndex, setEditIndex] = useState(null);
+  const [editValue, setEditValue] = useState("");
 
-  const add = () => {
+  const handleAdd = () => {
     setJobs((prev) => {
       const newList = [...prev, job];
       const storageJob = JSON.stringify(newList);
@@ -59,8 +60,23 @@ function App() {
 
   const handleEnter = (e) => {
     if (e.key === "Enter" && job) {
-      add();
+      handleAdd();
     }
+  };
+
+  const handleDelete = () => {
+    const deleteJobs = jobs.filter((job, index) => !checked.includes(index));
+
+    setJobs(deleteJobs);
+    setChecked([]);
+
+    localStorage.setItem("jobs", JSON.stringify(deleteJobs));
+    localStorage.setItem("checked", JSON.stringify([]));
+  };
+
+  const handleEdit = (index) => {
+    setEditIndex(index);
+    setEditValue(jobs[index]);
   };
 
   return (
@@ -69,7 +85,7 @@ function App() {
         <TodoInput
           job={job}
           setJob={setJob}
-          add={add}
+          handleAdd={handleAdd}
           inputRef={inputRef}
           handleEnter={handleEnter}
         />
@@ -77,7 +93,11 @@ function App() {
 
         <Progress checked={checked} jobs={jobs} />
 
-        <ActionButton handleUpdate={handleUpdate} clearAll={clearAll} />
+        <ActionButton
+          handleUpdate={handleUpdate}
+          clearAll={clearAll}
+          handleDelete={handleDelete}
+        />
       </div>
     </>
   );
