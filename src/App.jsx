@@ -16,10 +16,9 @@ function App() {
     const getChecked = JSON.parse(localStorage.getItem("checked"));
     return getChecked ?? [];
   });
-  const [editIndex, setEditIndex] = useState(null);
-  const [editValue, setEditValue] = useState("");
 
   const handleAdd = () => {
+    console.log("Add");
     setJobs((prev) => {
       const newList = [...prev, job];
       const storageJob = JSON.stringify(newList);
@@ -59,6 +58,7 @@ function App() {
   };
 
   const handleEnter = (e) => {
+    console.log("Enter");
     if (e.key === "Enter" && job) {
       handleAdd();
     }
@@ -72,11 +72,6 @@ function App() {
 
     localStorage.setItem("jobs", JSON.stringify(deleteJobs));
     localStorage.setItem("checked", JSON.stringify([]));
-  };
-
-  const handleEdit = (index) => {
-    setEditIndex(index);
-    setEditValue(jobs[index]);
   };
 
   return (

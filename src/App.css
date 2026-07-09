@@ -7,7 +7,7 @@ li {
   list-style: none;
 }
 
-.job-item {
+/* .job-item {
   display: flex;
   align-items: center;
   gap: 10px;
@@ -22,4 +22,4 @@ li {
 .job-name {
   width: 200px;
   display: inline-block;
-}
+} */
