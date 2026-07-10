@@ -8,7 +8,11 @@ function TodoInput({ job, setJob, handleAdd, inputRef, handleEnter }) {
         value={job}
         onChange={(e) => setJob(e.target.value)}
       />
-      <button style={{ padding: "10px" }} onClick={handleAdd} disabled={!job}>
+      <button
+        style={{ padding: "10px" }}
+        onClick={handleAdd}
+        disabled={!job.trim()}
+      >
         Add to list
       </button>
     </>
