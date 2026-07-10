@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import "./App.css";
 import TodoInput from "./components/TodoInput";
 import TodoList from "./components/TodoList";
@@ -17,13 +17,18 @@ function App() {
     return getChecked ?? [];
   });
 
+  useEffect(() => {
+    localStorage.setItem("jobs", JSON.stringify(jobs));
+  }, [jobs]);
+
+  useEffect(() => {
+    localStorage.setItem("checked", JSON.stringify(checked));
+  }, [checked]);
+
   const handleAdd = () => {
     console.log("Add");
     setJobs((prev) => {
-      const newList = [...prev, job];
-      const storageJob = JSON.stringify(newList);
-      localStorage.setItem("jobs", storageJob);
-      return newList;
+      return [...prev, job];
     });
 
     setJob("");
@@ -42,9 +47,9 @@ function App() {
     });
   };
 
-  const handleUpdate = () => {
-    localStorage.setItem("checked", JSON.stringify(checked));
-  };
+  // const handleUpdate = () => {
+  //   localStorage.setItem("checked", JSON.stringify(checked));
+  // };
 
   const clearAll = () => {
     const isConfirm = window.confirm("Bạn có muốn xoá hết không?");
@@ -52,14 +57,13 @@ function App() {
     if (isConfirm) {
       setJobs([]);
       setChecked([]);
-      localStorage.removeItem("jobs");
-      localStorage.removeItem("checked");
     }
   };
 
   const handleEnter = (e) => {
     console.log("Enter");
-    if (e.key === "Enter" && job) {
+    if (e.nativeEvent.isComposing) return;
+    if (e.key === "Enter" && job.trim()) {
       handleAdd();
     }
   };
@@ -89,7 +93,7 @@ function App() {
         <Progress checked={checked} jobs={jobs} />
 
         <ActionButton
-          handleUpdate={handleUpdate}
+          // handleUpdate={handleUpdate}
           clearAll={clearAll}
           handleDelete={handleDelete}
         />
