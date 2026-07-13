@@ -24,14 +24,7 @@ function TodoList({
                 onChange={(e) => setEditValue(e.target.value)}
               />
             ) : (
-              <span
-                className="todo-title"
-                style={{
-                  textDecoration: job.completed ? "line-through" : "none",
-                }}
-              >
-                {job.title}
-              </span>
+              <span className="todo-title">{job.title}</span>
             )}
             {editingId === job.id ? (
               <>
