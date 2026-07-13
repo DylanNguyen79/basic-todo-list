@@ -12,23 +12,24 @@ function App() {
     const getJobs = JSON.parse(localStorage.getItem("jobs"));
     return getJobs ?? [];
   });
-  const [checked, setChecked] = useState(() => {
-    const getChecked = JSON.parse(localStorage.getItem("checked"));
-    return getChecked ?? [];
-  });
 
   useEffect(() => {
     localStorage.setItem("jobs", JSON.stringify(jobs));
   }, [jobs]);
 
-  useEffect(() => {
-    localStorage.setItem("checked", JSON.stringify(checked));
-  }, [checked]);
-
   const handleAdd = () => {
     console.log("Add");
+    if (!job.trim()) return;
+
     setJobs((prev) => {
-      return [...prev, job];
+      return [
+        ...prev,
+        {
+          id: Date.now(),
+          title: job.trim(),
+          completed: false,
+        },
+      ];
     });
 
     setJob("");
@@ -36,14 +37,14 @@ function App() {
     inputRef.current.focus();
   };
 
-  const handleChecked = (index) => {
-    setChecked((prev) => {
-      const isChecked = prev.includes(index);
-      if (isChecked) {
-        return prev.filter((item) => item !== index);
-      } else {
-        return [...prev, index];
-      }
+  const handleChecked = (id) => {
+    setJobs((prev) => {
+      return prev.map((job) => {
+        if (job.id === id) {
+          return { ...job, completed: !job.completed };
+        }
+        return job;
+      });
     });
   };
 
@@ -56,7 +57,6 @@ function App() {
 
     if (isConfirm) {
       setJobs([]);
-      setChecked([]);
     }
   };
 
@@ -69,10 +69,9 @@ function App() {
   };
 
   const handleDelete = () => {
-    const deleteJobs = jobs.filter((job, index) => !checked.includes(index));
+    const deleteJobs = jobs.filter((job) => !job.completed);
 
     setJobs(deleteJobs);
-    setChecked([]);
 
     localStorage.setItem("jobs", JSON.stringify(deleteJobs));
     localStorage.setItem("checked", JSON.stringify([]));
@@ -88,9 +87,9 @@ function App() {
           inputRef={inputRef}
           handleEnter={handleEnter}
         />
-        <TodoList jobs={jobs} checked={checked} handleChecked={handleChecked} />
+        <TodoList jobs={jobs} handleChecked={handleChecked} />
 
-        <Progress checked={checked} jobs={jobs} />
+        <Progress jobs={jobs} />
 
         <ActionButton
           // handleUpdate={handleUpdate}

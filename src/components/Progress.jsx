@@ -1,14 +1,16 @@
-function Progress({ checked, jobs }) {
+function Progress({ jobs }) {
+  const completedJobs = jobs.filter((job) => job.completed);
+
   let progress;
   if (jobs.length === 0) {
     progress = 0;
   } else {
-    progress = ((checked.length / jobs.length) * 100).toFixed(1);
+    progress = ((completedJobs.length / jobs.length) * 100).toFixed(1);
   }
   return (
     <>
       <p>
-        Completed: {checked.length}/{jobs.length}
+        Completed: {completedJobs.length}/{jobs.length}
       </p>
 
       <p>Progress: {progress}%</p>

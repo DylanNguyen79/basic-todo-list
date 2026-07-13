@@ -1,15 +1,15 @@
-function TodoList({ jobs, checked, handleChecked }) {
+function TodoList({ jobs, handleChecked }) {
   return (
     <>
       <ul>
-        {jobs.map((job, index) => (
-          <li key={index}>
+        {jobs.map((job) => (
+          <li key={job.id}>
             <input
               type="checkbox"
-              checked={checked.includes(index)}
-              onChange={() => handleChecked(index)}
+              checked={job.completed}
+              onChange={() => handleChecked(job.id)}
             />
-            {job}
+            {job.title}
           </li>
         ))}
       </ul>
