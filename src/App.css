@@ -7,19 +7,12 @@ li {
   list-style: none;
 }
 
-/* .job-item {
+.todo-item {
   display: flex;
   align-items: center;
-  gap: 10px;
 }
 
-.job-left {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.job-name {
+.todo-title {
   width: 200px;
   display: inline-block;
-} */
+}

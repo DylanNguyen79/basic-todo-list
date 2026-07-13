@@ -12,6 +12,8 @@ function App() {
     const getJobs = JSON.parse(localStorage.getItem("jobs"));
     return getJobs ?? [];
   });
+  const [editingId, setEditingId] = useState(null);
+  const [editValue, setEditValue] = useState("");
 
   useEffect(() => {
     localStorage.setItem("jobs", JSON.stringify(jobs));
@@ -77,6 +79,29 @@ function App() {
     localStorage.setItem("checked", JSON.stringify([]));
   };
 
+  const handleEdit = (job) => {
+    setEditingId(job.id);
+    setEditValue(job.title);
+  };
+
+  const handleSave = () => {
+    setJobs((prev) => {
+      return prev.map((job) => {
+        if (job.id === editingId) {
+          return { ...job, title: editValue.trim() };
+        }
+        return job;
+      });
+    });
+    setEditingId(null);
+    setEditValue("");
+  };
+
+  const handleCancel = () => {
+    setEditingId(null);
+    setEditValue("");
+  };
+
   return (
     <>
       <div style={{ padding: "30" }}>
@@ -87,7 +112,16 @@ function App() {
           inputRef={inputRef}
           handleEnter={handleEnter}
         />
-        <TodoList jobs={jobs} handleChecked={handleChecked} />
+        <TodoList
+          jobs={jobs}
+          handleChecked={handleChecked}
+          editingId={editingId}
+          editValue={editValue}
+          setEditValue={setEditValue}
+          handleEdit={handleEdit}
+          handleSave={handleSave}
+          handleCancel={handleCancel}
+        />
 
         <Progress jobs={jobs} />
 

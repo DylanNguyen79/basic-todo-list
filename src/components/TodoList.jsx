@@ -1,15 +1,46 @@
-function TodoList({ jobs, handleChecked }) {
+function TodoList({
+  jobs,
+  handleChecked,
+  editingId,
+  editValue,
+  setEditValue,
+  handleEdit,
+  handleSave,
+  handleCancel,
+}) {
   return (
     <>
       <ul>
         {jobs.map((job) => (
-          <li key={job.id}>
+          <li className="todo-item" key={job.id}>
             <input
               type="checkbox"
               checked={job.completed}
               onChange={() => handleChecked(job.id)}
             />
-            {job.title}
+            {editingId === job.id ? (
+              <input
+                value={editValue}
+                onChange={(e) => setEditValue(e.target.value)}
+              />
+            ) : (
+              <span
+                className="todo-title"
+                style={{
+                  textDecoration: job.completed ? "line-through" : "none",
+                }}
+              >
+                {job.title}
+              </span>
+            )}
+            {editingId === job.id ? (
+              <>
+                <button onClick={() => handleSave()}>Save</button>
+                <button onClick={handleCancel}>Cancel</button>
+              </>
+            ) : (
+              <button onClick={() => handleEdit(job)}>Edit</button>
+            )}
           </li>
         ))}
       </ul>
