@@ -28,7 +28,7 @@ function TodoList({
             )}
             {editingId === job.id ? (
               <>
-                <button onClick={() => handleSave()}>Save</button>
+                <button onClick={handleSave}>Save</button>
                 <button onClick={handleCancel}>Cancel</button>
               </>
             ) : (
