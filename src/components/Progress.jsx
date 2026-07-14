@@ -8,13 +8,13 @@ function Progress({ jobs }) {
     progress = ((completedJobs.length / jobs.length) * 100).toFixed(1);
   }
   return (
-    <>
+    <div className="progress">
       <p>
         Completed: {completedJobs.length}/{jobs.length}
       </p>
-
+</br>
       <p>Progress: {progress}%</p>
-    </>
+    </div>
   );
 }
 

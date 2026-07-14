@@ -10,9 +10,103 @@ li {
 .todo-item {
   display: flex;
   align-items: center;
+  padding: 3px;
+  background: lightblue;
+  border: 2px solid;
+  border-radius: 8px;
+  margin: 10px;
 }
 
 .todo-title {
   width: 200px;
   display: inline-block;
+  font-weight: 100;
+}
+
+.container {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.card {
+  width: 500px;
+  padding: 20px;
+  background: white;
+  border-radius: 12px;
+  border: 2px solid;
+}
+
+.todo-list-section {
+  margin-top: 20px;
+}
+
+.progress-section {
+  margin-top: 20px;
+}
+
+.action-section {
+  margin-top: 20px;
+}
+
+.todo-input {
+  width: 150px;
+  padding: 5px;
+  border-radius: 10px;
+  align-items: center;
+}
+
+.add-button {
+  padding: 5px;
+  border-radius: 10px;
+  cursor: pointer;
+  align-items: center;
+}
+
+.edit-button {
+  padding: 8px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  margin-left: auto;
+  background-color: rgb(239, 216, 216);
+  border: 2px solid;
+}
+
+.save-button {
+  padding: 8px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  margin-left: auto;
+  background-color: rgb(239, 216, 216);
+  border: 2px solid;
+}
+
+.cancel-button {
+  padding: 8px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  margin-left: auto;
+  background-color: rgb(239, 216, 216);
+  border: 2px solid;
+}
+
+.input-group {
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+}
+
+.progress {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.action-button {
+  display: flex;
+  justify-content: center;
 }

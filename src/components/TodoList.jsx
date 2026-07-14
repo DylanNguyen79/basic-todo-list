@@ -27,12 +27,22 @@ function TodoList({
               <span className="todo-title">{job.title}</span>
             )}
             {editingId === job.id ? (
-              <>
-                <button onClick={handleSave}>Save</button>
-                <button onClick={handleCancel}>Cancel</button>
-              </>
+              <div>
+                <button
+                  className="save-button"
+                  onClick={handleSave}
+                  disabled={!editValue.trim()}
+                >
+                  Save
+                </button>
+                <button className="cancel-button" onClick={handleCancel}>
+                  Cancel
+                </button>
+              </div>
             ) : (
-              <button onClick={() => handleEdit(job)}>Edit</button>
+              <button className="edit-button" onClick={() => handleEdit(job)}>
+                Edit
+              </button>
             )}
           </li>
         ))}

@@ -50,10 +50,6 @@ function App() {
     });
   };
 
-  // const handleUpdate = () => {
-  //   localStorage.setItem("checked", JSON.stringify(checked));
-  // };
-
   const clearAll = () => {
     const isConfirm = window.confirm("Bạn có muốn xoá hết không?");
 
@@ -85,6 +81,8 @@ function App() {
   };
 
   const handleSave = () => {
+    if (!editValue.trim()) return;
+
     setJobs((prev) => {
       return prev.map((job) => {
         if (job.id === editingId) {
@@ -104,32 +102,43 @@ function App() {
 
   return (
     <>
-      <div style={{ padding: "30" }}>
-        <TodoInput
-          job={job}
-          setJob={setJob}
-          handleAdd={handleAdd}
-          inputRef={inputRef}
-          handleEnter={handleEnter}
-        />
-        <TodoList
-          jobs={jobs}
-          handleChecked={handleChecked}
-          editingId={editingId}
-          editValue={editValue}
-          setEditValue={setEditValue}
-          handleEdit={handleEdit}
-          handleSave={handleSave}
-          handleCancel={handleCancel}
-        />
+      <div className="container">
+        <div className="card">
+          <div className="todo-input-section">
+            <TodoInput
+              job={job}
+              setJob={setJob}
+              handleAdd={handleAdd}
+              inputRef={inputRef}
+              handleEnter={handleEnter}
+            />
+          </div>
 
-        <Progress jobs={jobs} />
+          <div className="todo-list-section">
+            <TodoList
+              jobs={jobs}
+              handleChecked={handleChecked}
+              editingId={editingId}
+              editValue={editValue}
+              setEditValue={setEditValue}
+              handleEdit={handleEdit}
+              handleSave={handleSave}
+              handleCancel={handleCancel}
+            />
+          </div>
 
-        <ActionButton
-          // handleUpdate={handleUpdate}
-          clearAll={clearAll}
-          handleDelete={handleDelete}
-        />
+          <div className="progress-section">
+            <Progress jobs={jobs} />
+          </div>
+
+          <div className="action-section">
+            <ActionButton
+              // handleUpdate={handleUpdate}
+              clearAll={clearAll}
+              handleDelete={handleDelete}
+            />
+          </div>
+        </div>
       </div>
     </>
   );
