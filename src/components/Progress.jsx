@@ -12,7 +12,7 @@ function Progress({ jobs }) {
       <p>
         Completed: {completedJobs.length}/{jobs.length}
       </p>
-</br>
+
       <p>Progress: {progress}%</p>
     </div>
   );
