@@ -15,6 +15,7 @@ li {
   border: 2px solid;
   border-radius: 8px;
   margin: 10px;
+  width: 400px;
 }
 
 .todo-title {
@@ -62,6 +63,7 @@ li {
   border-radius: 10px;
   cursor: pointer;
   align-items: center;
+  background-color: rgb(239, 216, 216);
 }
 
 .edit-button {
@@ -94,6 +96,11 @@ li {
   border: 2px solid;
 }
 
+.save-cancel-button {
+  margin-left: auto;
+  gap: 5px;
+}
+
 .input-group {
   display: flex;
   justify-content: center;
@@ -109,4 +116,44 @@ li {
 .action-button {
   display: flex;
   justify-content: center;
+  gap: 5px;
+}
+
+.delete-button {
+  border-radius: 8px;
+  border: 2px solid;
+  padding: 8px;
+  background-color: rgb(239, 216, 216);
+}
+
+.clear-button {
+  border-radius: 8px;
+  border: 2px solid;
+  padding: 8px;
+  background-color: rgb(239, 216, 216);
+}
+
+.edit-input {
+  border-radius: 8px;
+}
+
+.progress-bar {
+  width: 85%;
+  height: 15px;
+  background: rgb(183, 182, 182);
+  border-radius: 8px;
+}
+
+.progress-fill {
+  height: 100%;
+  background: rgb(3, 164, 3);
+  border-radius: 8px;
+}
+
+.filter {
+  border: 2px solid;
+  border-radius: 8px;
+  background: rgb(239, 216, 216);
+  text-align: center;
+  height: fit-content;
 }

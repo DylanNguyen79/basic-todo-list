@@ -13,6 +13,10 @@ function Progress({ jobs }) {
         Completed: {completedJobs.length}/{jobs.length}
       </p>
 
+      <div className="progress-bar">
+        <div style={{ width: `${progress}%` }} className="progress-fill"></div>
+      </div>
+
       <p>Progress: {progress}%</p>
     </div>
   );

@@ -4,6 +4,7 @@ import TodoInput from "./components/TodoInput";
 import TodoList from "./components/TodoList";
 import Progress from "./components/Progress";
 import ActionButton from "./components/ActionButton";
+import Filter from "./components/Filter";
 
 function App() {
   const inputRef = useRef();
@@ -14,6 +15,7 @@ function App() {
   });
   const [editingId, setEditingId] = useState(null);
   const [editValue, setEditValue] = useState("");
+  const [filter, setFilter] = useState("All");
 
   useEffect(() => {
     localStorage.setItem("jobs", JSON.stringify(jobs));
@@ -100,11 +102,22 @@ function App() {
     setEditValue("");
   };
 
+  let filteredJobs;
+  if (filter === "All") {
+    filteredJobs = jobs;
+  }
+  if (filter === "Active") {
+    filteredJobs = jobs.filter((job) => !job.completed);
+  }
+  if (filter === "Completed") {
+    filteredJobs = jobs.filter((job) => job.completed);
+  }
+
   return (
     <>
       <div className="container">
         <div className="card">
-          <div className="todo-input-section">
+          <div>
             <TodoInput
               job={job}
               setJob={setJob}
@@ -114,9 +127,11 @@ function App() {
             />
           </div>
 
+          <Filter filter={filter} setFilter={setFilter} />
+
           <div className="todo-list-section">
             <TodoList
-              jobs={jobs}
+              jobs={filteredJobs}
               handleChecked={handleChecked}
               editingId={editingId}
               editValue={editValue}

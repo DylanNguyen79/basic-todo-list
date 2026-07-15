@@ -14,6 +14,7 @@ function TodoList({
         {jobs.map((job) => (
           <li className="todo-item" key={job.id}>
             <input
+              className="edit-input"
               type="checkbox"
               checked={job.completed}
               onChange={() => handleChecked(job.id)}
@@ -27,7 +28,7 @@ function TodoList({
               <span className="todo-title">{job.title}</span>
             )}
             {editingId === job.id ? (
-              <div>
+              <div className="save-cancel-button">
                 <button
                   className="save-button"
                   onClick={handleSave}
