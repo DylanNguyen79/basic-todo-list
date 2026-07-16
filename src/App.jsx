@@ -113,6 +113,10 @@ function App() {
     filteredJobs = jobs.filter((job) => job.completed);
   }
 
+  console.log(filter);
+  console.log(jobs);
+  console.log(filteredJobs);
+
   return (
     <>
       <div className="container">

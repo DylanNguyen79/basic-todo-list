@@ -7,6 +7,7 @@ function TodoInput({ job, setJob, handleAdd, inputRef, handleEnter }) {
         onKeyDown={handleEnter}
         value={job}
         onChange={(e) => setJob(e.target.value)}
+        placeholder="Add a new task..."
       />
       <button className="add-button" onClick={handleAdd} disabled={!job.trim()}>
         Add to list
