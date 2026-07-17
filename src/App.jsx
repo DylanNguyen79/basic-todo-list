@@ -4,7 +4,6 @@ import TodoInput from "./components/TodoInput";
 import TodoList from "./components/TodoList";
 import Progress from "./components/Progress";
 import ActionButton from "./components/ActionButton";
-import Filter from "./components/Filter";
 
 function App() {
   const inputRef = useRef();
@@ -15,7 +14,7 @@ function App() {
   });
   const [editingId, setEditingId] = useState(null);
   const [editValue, setEditValue] = useState("");
-  const [filter, setFilter] = useState("All");
+  // const [filter, setFilter] = useState("All");
 
   useEffect(() => {
     localStorage.setItem("jobs", JSON.stringify(jobs));
@@ -31,7 +30,7 @@ function App() {
         {
           id: Date.now(),
           title: job.trim(),
-          completed: false,
+          status: "todo",
         },
       ];
     });
@@ -102,62 +101,63 @@ function App() {
     setEditValue("");
   };
 
-  let filteredJobs;
-  if (filter === "All") {
-    filteredJobs = jobs;
-  }
-  if (filter === "Active") {
-    filteredJobs = jobs.filter((job) => !job.completed);
-  }
-  if (filter === "Completed") {
-    filteredJobs = jobs.filter((job) => job.completed);
-  }
+  // let filteredJobs;
+  // if (filter === "All") {
+  //   filteredJobs = jobs;
+  // }
+  // if (filter === "Active") {
+  //   filteredJobs = jobs.filter((job) => !job.completed);
+  // }
+  // if (filter === "Completed") {
+  //   filteredJobs = jobs.filter((job) => job.completed);
+  // }
+  console.log("jobs", jobs);
+  console.log("jobs.filter():", jobs.filter);
 
-  console.log(filter);
-  console.log(jobs);
-  console.log(filteredJobs);
+  let todoJobs = jobs.filter((job) => job.status === "todo");
+  let inProgressJobs = jobs.filter((job) => job.status === "inprogress");
+  let doneJobs = jobs.filter((job) => job.status === "done");
 
   return (
     <>
-      <div className="container">
-        <div className="card">
-          <div>
-            <TodoInput
-              job={job}
-              setJob={setJob}
-              handleAdd={handleAdd}
-              inputRef={inputRef}
-              handleEnter={handleEnter}
-            />
-          </div>
+      <div>
+        <TodoInput
+          job={job}
+          setJob={setJob}
+          handleAdd={handleAdd}
+          inputRef={inputRef}
+          handleEnter={handleEnter}
+        />
+      </div>
 
-          <Filter filter={filter} setFilter={setFilter} />
+      {/* <Filter filter={filter} setFilter={setFilter} /> */}
 
-          <div className="todo-list-section">
-            <TodoList
-              jobs={filteredJobs}
-              handleChecked={handleChecked}
-              editingId={editingId}
-              editValue={editValue}
-              setEditValue={setEditValue}
-              handleEdit={handleEdit}
-              handleSave={handleSave}
-              handleCancel={handleCancel}
-            />
-          </div>
+      <div className="todo-list-section">
+        <TodoList
+          jobs={jobs}
+          handleChecked={handleChecked}
+          editingId={editingId}
+          editValue={editValue}
+          setEditValue={setEditValue}
+          handleEdit={handleEdit}
+          handleSave={handleSave}
+          handleCancel={handleCancel}
+          todoJobs={todoJobs}
+          inProgressJobs={inProgressJobs}
+          doneJobs={doneJobs}
+        />
+      </div>
 
-          <div className="progress-section">
-            <Progress jobs={jobs} />
-          </div>
+      <div className="progress-section">
+        <Progress jobs={jobs} />
+      </div>
 
-          <div className="action-section">
-            <ActionButton
-              // handleUpdate={handleUpdate}
-              clearAll={clearAll}
-              handleDelete={handleDelete}
-            />
-          </div>
-        </div>
+      <div className="action-section">
+        <ActionButton
+          // handleUpdate={handleUpdate}
+          clearAll={clearAll}
+          handleDelete={handleDelete}
+        />
       </div>
     </>
   );
