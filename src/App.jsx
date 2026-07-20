@@ -4,6 +4,7 @@ import TodoInput from "./components/TodoInput";
 import TodoList from "./components/TodoList";
 import Progress from "./components/Progress";
 import ActionButton from "./components/ActionButton";
+import Search from "./components/Search";
 
 function App() {
   const inputRef = useRef();
@@ -15,6 +16,7 @@ function App() {
   const [editingId, setEditingId] = useState(null);
   const [editValue, setEditValue] = useState("");
   // const [filter, setFilter] = useState("All");
+  const [search, setSearch] = useState("");
 
   useEffect(() => {
     localStorage.setItem("jobs", JSON.stringify(jobs));
@@ -118,15 +120,31 @@ function App() {
   let inProgressJobs = jobs.filter((job) => job.status === "inprogress");
   let doneJobs = jobs.filter((job) => job.status === "done");
 
+  let suggestionJobs;
+  if (search === "") {
+    suggestionJobs = [];
+  } else {
+    suggestionJobs = jobs.filter((job) =>
+      job.title.toLowerCase().includes(search.toLowerCase()),
+    );
+  }
+  console.log(jobs);
+  console.log("suggest: ", suggestionJobs);
   return (
     <>
-      <div>
+      <div className="todo-input-section">
         <TodoInput
           job={job}
           setJob={setJob}
           handleAdd={handleAdd}
           inputRef={inputRef}
           handleEnter={handleEnter}
+        />
+
+        <Search
+          search={search}
+          setSearch={setSearch}
+          suggestionJobs={suggestionJobs}
         />
       </div>
 
