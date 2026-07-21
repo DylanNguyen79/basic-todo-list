@@ -205,6 +205,7 @@ li {
   left: 0;
   width: 100%;
   z-index: 100;
+  cursor: pointer;
 }
 
 .suggestion-menu li {
@@ -220,8 +221,13 @@ li {
   border: 1px solid black;
 
   z-index: 9999;
+  border-radius: 8px;
 }
 
 .suggestion-menu li:hover {
   background: #eee;
+}
+
+.selected {
+  background-color: rgb(239, 216, 216);
 }

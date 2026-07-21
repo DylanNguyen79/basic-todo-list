@@ -17,13 +17,13 @@ function App() {
   const [editValue, setEditValue] = useState("");
   // const [filter, setFilter] = useState("All");
   const [search, setSearch] = useState("");
+  const [selectedJobId, setSelectedJobId] = useState(null);
 
   useEffect(() => {
     localStorage.setItem("jobs", JSON.stringify(jobs));
   }, [jobs]);
 
   const handleAdd = () => {
-    console.log("Add");
     if (!job.trim()) return;
 
     setJobs((prev) => {
@@ -62,7 +62,6 @@ function App() {
   };
 
   const handleEnter = (e) => {
-    console.log("Enter");
     if (e.nativeEvent.isComposing) return;
     if (e.key === "Enter" && job.trim()) {
       handleAdd();
@@ -113,8 +112,6 @@ function App() {
   // if (filter === "Completed") {
   //   filteredJobs = jobs.filter((job) => job.completed);
   // }
-  console.log("jobs", jobs);
-  console.log("jobs.filter():", jobs.filter);
 
   let todoJobs = jobs.filter((job) => job.status === "todo");
   let inProgressJobs = jobs.filter((job) => job.status === "inprogress");
@@ -128,8 +125,11 @@ function App() {
       job.title.toLowerCase().includes(search.toLowerCase()),
     );
   }
-  console.log(jobs);
-  console.log("suggest: ", suggestionJobs);
+
+  const handleSelected = (job) => {
+    setSelectedJobId(job.id);
+    setSearch(job.title);
+  };
   return (
     <>
       <div className="todo-input-section">
@@ -145,6 +145,9 @@ function App() {
           search={search}
           setSearch={setSearch}
           suggestionJobs={suggestionJobs}
+          selectedJobId={selectedJobId}
+          setSelectedJobId={setSelectedJobId}
+          handleSelected={handleSelected}
         />
       </div>
 
@@ -163,6 +166,7 @@ function App() {
           todoJobs={todoJobs}
           inProgressJobs={inProgressJobs}
           doneJobs={doneJobs}
+          selectedJobId={selectedJobId}
         />
       </div>
 

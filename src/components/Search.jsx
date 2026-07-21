@@ -1,4 +1,4 @@
-function Search({ search, setSearch, suggestionJobs }) {
+function Search({ search, setSearch, suggestionJobs, handleSelected }) {
   return (
     <div className="search-wrapper">
       <input
@@ -9,7 +9,9 @@ function Search({ search, setSearch, suggestionJobs }) {
       />
       <ul className="suggestion-menu">
         {suggestionJobs.map((job) => (
-          <li key={job.id}>{job.title}</li>
+          <li key={job.id} onClick={() => handleSelected(job)}>
+            {job.title}
+          </li>
         ))}
       </ul>
     </div>
