@@ -1,10 +1,11 @@
 import { DndContext } from "@dnd-kit/core";
-import { SortableContext } from "@dnd-kit/sortable";
+import { arrayMove, SortableContext } from "@dnd-kit/sortable";
 import SortableTask from "./SortableTask";
 
 function TodoList({
-  // jobs,
   // handleChecked,
+  jobs,
+  setJobs,
   editingId,
   editValue,
   setEditValue,
@@ -17,7 +18,15 @@ function TodoList({
   selectedJobId,
 }) {
   const handleDragEnd = (e) => {
-    console.log(e);
+    const { active, over } = e;
+    if (over === null) return;
+    if (active.id === over.id) return;
+
+    const oldID = jobs.findIndex((job) => job.id === active.id);
+    const newID = jobs.findIndex((job) => job.id === over.id);
+
+    arrayMove(jobs, oldID, newID);
+    setJobs(arrayMove(jobs, oldID, newID));
   };
 
   return (
@@ -29,7 +38,17 @@ function TodoList({
               <h2>TODO</h2>
               <ul>
                 {todoJobs.map((job) => (
-                  <SortableTask />
+                  <SortableTask
+                    key={job.id}
+                    job={job}
+                    editingId={editingId}
+                    editValue={editValue}
+                    setEditValue={setEditValue}
+                    handleEdit={handleEdit}
+                    handleSave={handleSave}
+                    handleCancel={handleCancel}
+                    selectedJobId={selectedJobId}
+                  />
                 ))}
               </ul>
             </div>

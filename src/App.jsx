@@ -156,6 +156,7 @@ function App() {
       <div className="todo-list-section">
         <TodoList
           jobs={jobs}
+          setJobs={setJobs}
           handleChecked={handleChecked}
           editingId={editingId}
           editValue={editValue}

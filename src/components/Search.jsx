@@ -7,6 +7,7 @@ function Search({ search, setSearch, suggestionJobs, handleSelected }) {
         value={search}
         onChange={(e) => setSearch(e.target.value)}
       />
+      {console.log(suggestionJobs.length)}
       <ul className="suggestion-menu">
         {suggestionJobs.map((job) => (
           <li key={job.id} onClick={() => handleSelected(job)}>

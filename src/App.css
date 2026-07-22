@@ -21,7 +21,7 @@ li {
 }
 
 .todo-item:hover {
-  cursor: pointer;
+  cursor: grab;
   background-color: #f2e9e9;
 }
 
@@ -187,45 +187,65 @@ li {
   flex: 1;
 }
 
-.search {
-  width: 150px;
-  padding: 5px;
-  border-radius: 10px;
-}
-
 .search-wrapper {
   position: relative;
-  display: flex;
-  align-items: center;
+  width: 220px;
+}
+
+.search {
+  width: 100%;
+  padding: 8px 12px;
+  font-size: 14px;
+
+  border: 1px solid #d1d5db;
+  border-radius: 10px;
+
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+.search:focus {
+  border-color: #4f46e5;
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.15);
 }
 
 .suggestion-menu {
   position: absolute;
-  top: calc(100% + 5px);
+  top: calc(100% + 6px);
   left: 0;
+
   width: 100%;
-  z-index: 100;
-  cursor: pointer;
+
+  margin: 0;
+  padding: 6px 0;
+
+  list-style: none;
+
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+
+  max-height: 220px;
+  overflow-y: auto;
+
+  z-index: 1000;
 }
 
 .suggestion-menu li {
-  position: absolute;
-  top: 100%;
-  left: 0;
+  padding: 10px 12px;
+  cursor: pointer;
 
-  margin-top: 5px;
-
-  width: 100%;
-  background: white;
-
-  border: 1px solid black;
-
-  z-index: 9999;
-  border-radius: 8px;
+  transition: background 0.15s ease;
 }
 
 .suggestion-menu li:hover {
-  background: #eee;
+  background: #f3f4f6;
+}
+
+.suggestion-menu li:not(:last-child) {
+  border-bottom: 1px solid #f3f4f6;
 }
 
 .selected {
