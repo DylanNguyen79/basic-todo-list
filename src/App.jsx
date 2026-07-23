@@ -18,6 +18,7 @@ function App() {
   // const [filter, setFilter] = useState("All");
   const [search, setSearch] = useState("");
   const [selectedJobId, setSelectedJobId] = useState(null);
+  const [showSuggestion, setShowSuggestion] = useState(false);
 
   useEffect(() => {
     localStorage.setItem("jobs", JSON.stringify(jobs));
@@ -129,6 +130,7 @@ function App() {
   const handleSelected = (job) => {
     setSelectedJobId(job.id);
     setSearch(job.title);
+    setShowSuggestion(false);
   };
   return (
     <>
@@ -148,6 +150,8 @@ function App() {
           selectedJobId={selectedJobId}
           setSelectedJobId={setSelectedJobId}
           handleSelected={handleSelected}
+          showSuggestion={showSuggestion}
+          setShowSuggestion={setShowSuggestion}
         />
       </div>
 

@@ -1,4 +1,4 @@
-import { DndContext } from "@dnd-kit/core";
+import { DndContext, useDroppable } from "@dnd-kit/core";
 import { arrayMove, SortableContext } from "@dnd-kit/sortable";
 import SortableTask from "./SortableTask";
 
@@ -22,19 +22,22 @@ function TodoList({
     if (over === null) return;
     if (active.id === over.id) return;
 
-    const oldID = jobs.findIndex((job) => job.id === active.id);
-    const newID = jobs.findIndex((job) => job.id === over.id);
+    const activeJob = jobs.findIndex((job) => job.id === active.id);
+    const overJob = jobs.findIndex((job) => job.id === over.id);
 
-    arrayMove(jobs, oldID, newID);
-    setJobs(arrayMove(jobs, oldID, newID));
+    setJobs(arrayMove(jobs, activeJob, overJob));
   };
+
+  const { setNodeRef: setTodoRef } = useDroppable({ id: "todo" });
+  const { setNodeRef: setInProgressRef } = useDroppable({ id: "inprogress" });
+  const { setNodeRef: setDoneRef } = useDroppable({ id: "done" });
 
   return (
     <>
       <DndContext onDragEnd={handleDragEnd}>
         <div className="board">
           <SortableContext items={todoJobs.map((job) => job.id)}>
-            <div className="column-job">
+            <div className="column-job" ref={setTodoRef}>
               <h2>TODO</h2>
               <ul>
                 {todoJobs.map((job) => (
@@ -54,7 +57,7 @@ function TodoList({
             </div>
           </SortableContext>
 
-          <div className="column-job">
+          <div className="column-job" ref={setInProgressRef}>
             <h2>In Progress</h2>
             <ul>
               {inProgressJobs.map((job) => (
@@ -93,7 +96,7 @@ function TodoList({
             </ul>
           </div>
 
-          <div className="column-job">
+          <div className="column-job" ref={setDoneRef}>
             <h2>Done</h2>
             <ul>
               {doneJobs.map((job) => (
